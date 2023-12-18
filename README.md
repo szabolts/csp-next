@@ -1,4 +1,4 @@
-# Mongodb setup
+# MongoDB install
 
 *7.0.4*
 ### Telepítés
@@ -26,8 +26,8 @@ show roles
 ```mongosh
 db.createUser(
   {
-    user: "username",
-    pwd: "password",
+    user: "szuperuser",
+    pwd: "aesdeegykettoharom",
     roles: [
       { role: "userAdminAnyDatabase", db: "admin" },
       { role: "readWriteAnyDatabase", db: "admin" }
@@ -42,9 +42,9 @@ Abban a fasszopó shellben nem lehet szerkeszteni, ha nem inline adom meg a json
 use db_name
 db.createUser(
   {
-    user: "username",
-    pwd: "password",
-    roles: [ { role: "readWrite", db: "db_name" } ]
+    user: "nextcsp",
+    pwd: "optikutter420",
+    roles: [ { role: "readWrite", db: "csp" } ]
   }
 )
 ```
@@ -73,47 +73,51 @@ Ahhoz, hogy prismaval működjön replica setet kell létrehozni a standalone db
 - #todo: fain usecasenek tűnik dockerbe rakni
 - Replica set setup:
 	- https://www.mongodb.com/docs/manual/tutorial/convert-standalone-to-replica-set/
-	- + keyfilet kell generalni
+	- ahhoz hogy le lehessen lőni mongoshbol a mongo szerot, csinalni kell egy root felhasznalot(a user adminnal), es aztan azzal kell connectelni mongoshba
+pl:
+```
+db.createUser(
+    {
+      user: "gigacsedadmin",
+      pwd: "kurvaerosjelszo",
+      roles: [ "root" ]
+    }
+)
+```
+
+mongod.conf beallitasa:
+```
+security:
+  authorization: enabled
+  keyFile: /etc/mongo-security/keyfile.txt
+  transitionToAuth: true
+
+replication:
+  replSetName: rs0
+
+```
+
++ keyfilet kell generalni
 	- https://www.mongodb.com/docs/manual/tutorial/deploy-replica-set-with-keyfile-access-control/
 	- a keyfile az `/etc/mongo-security` -ba menjen, home mappaban szopni fog
 	- mongodb:mongodb legyen a  tulaj chmod 400-al
+```
+sudo mkdir /etc/mongo-security
+openssl rand -base64 756 > keyfile.txt
+sudo mv keyfile.txt /etc/mongo-security/
+chmod 400 /etc/mongo-security/keyfile.txt
+sudo chown mongodb:mongodb keyfile.txt 
+```
+
 
 .env -ben a connection stringet be kell allítani
 - https://www.prisma.io/docs/orm/overview/databases/mongodb#connection-url
 
 #todo SSL-t meg kene csekkolni mielőtt felkerül a szerveroszra
 
-## .kutyaszar filet a rootban át kell nevezni .env-re!
+### TLS/SSH setup
+*(egyelőre ilyen nincs)*
 
-### Prisma Cheat sheet
-Install
-```
-npm install prisma --save-dev
-```
+https://www.mongodb.com/docs/manual/tutorial/upgrade-cluster-to-ssl/
 
-Init
-```
-npx prisma init
-```
--ez letrehozza a `/prisma/prisma.schema` -t
-
-.env DATABASE_URL
-- https://www.prisma.io/docs/orm/overview/databases/mongodb#connection-url
-
-Prisma client
-```
-npm install @prisma/client
-```
-
-Reusing prisma client instance
-- https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections
-
-#todo Schema szerkesztese
-
-Schema feldurrantasa a db-be:
-```
-npx prisma db push
-```
-
-Outdated de erdemes lehet elolvasni session és tokenkezeleshez:
-https://www.codifytools.com/blog/auth-prisma-mongo-nextjs
+https://www.mongodb.com/docs/manual/tutorial/configure-ssl/#std-label-configure-mongod-mongos-for-tls-ssl
