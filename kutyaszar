@@ -9,7 +9,7 @@
 
 # replicaset utani connection string:
 
-DATABASE_URL="mongodb://nextcsp:optikutter@localhost:27017/csp?replicaSet=rs0"
+DATABASE_URL="mongodb://nextcsp:optikutter420@159.69.117.79:24202/csp?directConnection=true"
 AUTH_SECRET="j23h41optikuttya2j3h4b"
 
 
