@@ -13,7 +13,7 @@ export default function Home() {
         </h1>
         <h3 className="max-w-4xl text-4xl text-center pb-6 bg-gradient-to-tl from-green-300 via-blue-500 to-purple-600 text-transparent bg-clip-text">
           In the world of precision and efficiency, our algorithm slices through
-          complexity, redefining the art of optimal cutting solutions.
+          complexity, redefining the art of optimal cutting stock solutions.
         </h3>
         <Link href="/csp">
         <button  className="text-2xl bg-gradient-to-tl from-purple-600 to-blue-500 hover:from-green-300 hover:via-blue-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">
