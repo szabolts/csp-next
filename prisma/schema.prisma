@@ -18,3 +18,46 @@ model User {
   createdAt DateTime @default(now())
   @@map("users")
 }
+
+model Warehouse {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String   @unique
+  stock            Stock[]
+  cuttingParams    CuttingParameters?
+  orders           Order[]
+  waste            Waste[]
+}
+
+model Stock {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  type             String   // Cső típusa
+  length           Int      // Cső hossza méterben
+  quantity         Int      // Darabszám
+  warehouseId      String   @db.ObjectId
+  warehouse        Warehouse @relation(fields: [warehouseId], references: [id])
+}
+
+model CuttingParameters {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  cuttingCost      Float    // Vágás ára
+  kerfWidth        Float    // Kés vastagsága (kerf)
+  warehouseId      String   @unique @db.ObjectId
+  warehouse        Warehouse   @relation(fields: [warehouseId], references: [id])
+}
+
+model Order {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  ordered          Int      // Megrendelt mennyiség
+  cut              Int      // Kivágott mennyiség
+  delivered        Int      // Kiszállított mennyiség
+  warehouseId      String   @db.ObjectId
+  warehouse        Warehouse @relation(fields: [warehouseId], references: [id])
+}
+
+model Waste {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  type             String   // Szemét típusa
+  quantity         Int      // Mennyiség
+  warehouseId      String   @db.ObjectId
+  warehouse        Warehouse @relation(fields: [warehouseId], references: [id])
+}

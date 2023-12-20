@@ -1,7 +1,7 @@
 export default function CsPage() {
     return (
         <div>
-        <h1>Ezt csak auth utan lehet latni</h1>
+        <h1>Ezt inkabb ingyen lehet zargatni</h1>
         </div>
     );
 }
