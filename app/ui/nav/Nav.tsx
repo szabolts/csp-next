@@ -49,6 +49,11 @@ export default function Nav({ session }: { session?: Session | null }) {
             Csp
           </Link>
         </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/dashboard">
+            Dashboard
+          </Link>
+        </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
       {/* <NavbarItem className="hidden lg:flex"> */}
