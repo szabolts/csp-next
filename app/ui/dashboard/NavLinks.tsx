@@ -2,13 +2,8 @@
 
 import { MdHome } from "react-icons/md";
 import { MdLeaderboard } from "react-icons/md";
-import { RiTeamFill } from "react-icons/ri";
-import { TbPlayFootball } from "react-icons/tb";
-import { GiWhistle } from "react-icons/gi";
-import { RiUserFill } from "react-icons/ri";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LuClipboardList } from "react-icons/lu";
 import { HiClipboardList } from "react-icons/hi";
 import clsx from 'clsx';
 
