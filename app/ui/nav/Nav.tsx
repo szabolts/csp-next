@@ -15,7 +15,7 @@ export default function Nav({ session }: { session?: Session | null }) {
   };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered >
+    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered classNames={{wrapper: "max-w-screen-xl"}}>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
