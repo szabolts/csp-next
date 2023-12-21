@@ -15,7 +15,7 @@ export default function Nav({ session }: { session?: Session | null }) {
   };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
+    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered >
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -23,12 +23,13 @@ export default function Nav({ session }: { session?: Session | null }) {
         />
         <NavbarBrand  className="cursor-pointer" >
           <Link href="/#home" >
-          <p className="font-bold text-inherit">CSP</p>
+          {/* <p className="font-bold text-inherit">CSP</p> */}
+          <img src="/csplogo2.webp" className="h-12 hover:scale-110"></img>
           </Link>
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden sm:flex gap-4 " justify="center">
         <NavbarItem>
           <Link color="foreground" href="/#features" >
             Features

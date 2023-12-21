@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.className} scroll-smooth`} >
+    <html lang="en" className={`${GeistSans.className} scroll-smooth max-w-screen`} >
       <body className="min-h-screen ">
         <Providers>
           <ServerNav />
