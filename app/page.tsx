@@ -4,12 +4,9 @@ import Link from "next/link";
 
 import { Suspense, useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
-import { useTheme } from "next-themes";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
 function traverseAndDoSomething(object: any) {
@@ -58,7 +55,7 @@ function Model() {
         object={model}
         position={[0, 0, 0]}
         scale={1.5}
-        rotation={[0, Math.PI, Math.PI/2]}
+        rotation={[0, Math.PI, Math.PI / 2]}
       />
     </group>
   );
@@ -104,26 +101,32 @@ export default function Home() {
         id="home"
         className="flex flex-col justify-center items-center h-screen"
       >
-        <h1 className="text-9xl text-center font-bold  pb-6 bg-gradient-to-tl from-green-300 via-blue-500 to-purple-600 text-transparent bg-clip-text">
+        <h1 className="text-9xl text-center font-bold  pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600  text-transparent bg-clip-text">
           Cutting Edge Optimizer
         </h1>
-        <h3 className="max-w-4xl text-4xl text-center pb-6 bg-gradient-to-tl from-green-300 via-blue-500 to-purple-600 text-transparent bg-clip-text">
+        <h3 className="max-w-4xl text-4xl text-center pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600 text-transparent bg-clip-text">
           In the world of precision and efficiency, our algorithm slices through
           complexity, redefining the art of optimal cutting stock solutions.
         </h3>
         <Link href="/csp">
-          <button className="text-2xl bg-gradient-to-tl from-purple-600 to-blue-500 hover:from-green-300 hover:via-blue-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">
+          <button className="text-2xl bg-gradient-to-tl from-purple-600 to-blue-500 hover:from-green-300 hover:via-blue-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 active:animate-bounce ">
             Get started for Free
           </button>
         </Link>
       </div>
       <div
         id="features"
-        className=" relative flex flex-col justify-center items-center h-screen pt-32"
+        className=" relative flex flex-col justify-center items-center h-screen mt-32"
       >
         <div className=" relative flex flex-col w-full p-2">
-          <h1 className="  text-6xl">Szanaszét wág</h1>
-          <p>Szana széllyel vág a cucc</p>
+          <h2 className="text-6xl font-bold pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600  text-transparent bg-clip-text">
+            Szanaszét wág
+          </h2>
+          <h4 className="max-w-4xl text-4xl pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600 text-transparent bg-clip-text">
+            Szana széllyel vág a cucc
+          </h4>
+          {/* <h1 className="  text-6xl">Szanaszét wág</h1>
+          <p>Szana széllyel vág a cucc</p> */}
         </div>
 
         <Canvas
@@ -146,11 +149,17 @@ export default function Home() {
       {/* <div className=" absolute w-screen h-64  bg-zinc-500 dark:bg-zinc-700 z-20"></div> */}
       <div
         id="pricing"
-        className=" relative flex flex-row justify-center items-center h-screen bg-zinc-300 dark:bg-zinc-500 z-30 shadow-large shadow-zinc-900"
+        className=" relative flex flex-row justify-center items-center h-screen bg-zinc-300 dark:bg-zinc-700 z-30 shadow-2xl dark:shadow-purple-700 shadow-zinc-900 "
       >
         <div className="flex flex-col">
-          <h1 className="text-6xl">Kurvadrága</h1>
-          <p>Gecidrága de hát ez van ki kell fizetni...</p>
+          <h2 className="text-6xl font-bold text-center pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600  text-transparent bg-clip-text">
+            Kurvadrága
+          </h2>
+          <h4 className="max-w-4xl text-4xl text-center pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600 text-transparent bg-clip-text">
+            Gecidrága de hát ez van ki kell fizetni...
+          </h4>
+          {/* <h1 className="text-6xl">Kurvadrága</h1>
+          <p>Gecidrága de hát ez van ki kell fizetni...</p> */}
         </div>
       </div>
       <div
@@ -158,10 +167,16 @@ export default function Home() {
         className="flex flex-row justify-center items-center h-screen"
       >
         <div className="flex flex-col">
-          <h1 className="text-6xl">Irsz kurva</h1>
+          <h2 className=" text-6xl font-bold text-center pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600  text-transparent bg-clip-text">
+            Irsz kurva
+          </h2>
+          <h4 className="max-w-4xl text-4xl text-center pb-6 bg-gradient-to-tl dark:from-green-300 from-green-700 via-blue-500 to-red-700 dark:to-purple-600 text-transparent bg-clip-text">
+            De nem adunk meg semmilyen elérhetőséget szóval találd ki magadtól
+          </h4>
+          {/* <h1 className="text-6xl">Irsz kurva</h1>
           <p>
             De nem adunk meg semmilyen elérhetőséget szóval találd ki magadtól
-          </p>
+          </p> */}
         </div>
       </div>
     </main>
