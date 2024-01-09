@@ -1,6 +1,6 @@
 import React from "react";
 import { useRef } from "react";
-import Loading from "../loading/page";
+import Loading from "./Loading";
 
 export default function Createresults({ response, inputdata, clicked, wrongdata }) {
   if (clicked == true) {

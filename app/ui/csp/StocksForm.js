@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
-import Stockinput from "../stockinput/page";
+import Stockinput from "./StockInput";
 
 export default function Stockform() {
   
@@ -38,7 +38,7 @@ export default function Stockform() {
   return (
     <div className="flex flex-col items-center w-full  ">
       <div
-        className="sfc flex flex-col items-center w-9/12 transition-all bg-blur backdrop-blur-[5px] duration-300 ease-in-out rounded-md border-2 border-zinc-700 p-2 pt-6 overflow-hidden"
+        className="sfc flex flex-col items-center w-[90%] transition-all bg-blur backdrop-blur-[5px] duration-300 ease-in-out rounded-md border-2 border-zinc-700 p-2 pt-6 overflow-hidden"
         style={{ height: `calc(${stockInputs.length} * 70px + 170px)` }}
       >
         <h2 className="flex left-2 text-lg pb-2 text-[34px] ">Stocks</h2>

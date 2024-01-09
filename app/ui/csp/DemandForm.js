@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useState } from "react";
-import Demandinput from "../demandinput/page";
+import Demandinput from "./DemandInput";
 
 export default function Demandform() {
   const colors = [
@@ -44,7 +44,7 @@ export default function Demandform() {
   return (
     <div className="flex flex-col items-center w-full ">
       <div
-        className="sfc flex flex-col items-center w-9/12 transition-all bg-blur backdrop-blur-[5px] duration-300 ease-in-out rounded-md border-2 border-zinc-700 p-2 pt-6 overflow-hidden"
+        className="sfc flex flex-col items-center w-[90%] transition-all bg-blur backdrop-blur-[5px] duration-300 ease-in-out rounded-md border-2 border-zinc-700 p-2 pt-6 overflow-hidden"
         style={{ height: `calc(${demandInputs.length} * 70px + 100px)` }}
       >
         <h2 className="flex left-2 text-lg pb-2 text-[34px]">Demands</h2>

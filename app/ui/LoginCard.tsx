@@ -14,9 +14,10 @@ import { useRouter } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 import { authenticate } from "@/app/lib/actions";
 import Link from "next/link"
+import { SessionType } from "@/app/lib/definitions";
 
 
-export default function Logincard() {
+export default function Logincard({ session }: { session?: SessionType | null }) {
   const router = useRouter();
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   

@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import Stockform from "./components/stocksform/page";
-import Demandform from "./components/demandform/page";
-import BG from "./components/backgroung/page";
-import Createresults from "./components/results/page";
-import Description from "./components/description/page";
+import Stockform from "../ui/csp/StocksForm";
+import Demandform from "../ui/csp/DemandForm";
+import BG from "../ui/csp/Background";
+import Createresults from "../ui/csp/Results";
+import Description from "../ui/csp/Descrription";
 
 export default function App() {
   const [Results, setResults] = useState([]);
@@ -66,6 +66,7 @@ export default function App() {
         headers: {
           "Content-Type": "application/json",
         },
+        // console.log("faszos_ ", JSON.stringify(data))
         body: JSON.stringify(data),
       });
 
@@ -102,7 +103,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-screen overflow-x-hidden min-h-screen z-10 ">
+    <div className="flex flex-col items-center justify-center max-w-screen-xl m-auto overflow-x-hidden min-h-[calc(100vh-65px)] z-10 ">
       <div className="w-full h-full flex flex-col items-center justify-center   z-20">
         <Description />
         <Stockform />
@@ -126,3 +127,26 @@ export default function App() {
     </div>
   );
 }
+
+
+[
+  [
+      "4",
+      "6",
+      "7"
+  ],
+  [
+      "80",
+      "50",
+      "100"
+  ],
+  [
+      "10"
+  ],
+  [
+      "0"
+  ],
+  [
+      "0"
+  ]
+]

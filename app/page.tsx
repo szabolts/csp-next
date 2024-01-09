@@ -6,7 +6,7 @@ import { Suspense, useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 
 import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
@@ -29,14 +29,15 @@ function traverseAndDoSomething(object: any) {
 }
 
 function Model() {
-  const groupRef = useRef();
+  // így nem sír a refre a returnben, useRefnek kell egy default érték
+  const groupRef = useRef<THREE.Group>(null);
   const gltf = useLoader(GLTFLoader, "/szétvág.glb");
   const model = gltf.scene;
   const mixer = new THREE.AnimationMixer(model);
 
   useFrame(() => {
     if (mixer) {
-      mixer.update(0.01); // You can adjust the time delta as needed
+      mixer.update(0.005); // You can adjust the time delta as needed
     }
   });
 

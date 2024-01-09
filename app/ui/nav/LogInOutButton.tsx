@@ -1,12 +1,15 @@
 import LogoutButton from "./LogoutButton";
 import Link from "next/link";
-import { Button } from "@nextui-org/react";
+import { Button, User } from "@nextui-org/react";
 import { Session } from "next-auth";
+import { SessionType } from "@/app/lib/definitions";
+import UserComponent from "./User";
 
-export default function LogInOutButton ({ session }: { session?: Session | null }) {
+export default function LogInOutButton ({ session }: { session?: SessionType | null }) {
     
     return session ? (
-        <LogoutButton/>
+        // <LogoutButton/>
+        <UserComponent session={session}/>
     ): (
         <div>
             <Button><Link href="/signup">Signup</Link></Button>

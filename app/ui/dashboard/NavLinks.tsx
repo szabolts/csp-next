@@ -6,23 +6,36 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HiClipboardList } from "react-icons/hi";
 import clsx from 'clsx';
+import { SessionType } from "@/app/lib/definitions";
 
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
-const links = [
-  { name: 'Overview', href: '/dashboard', icon: MdHome },
-  {
-    name: 'Stocks',
-    href: '/dashboard/stocks',
-    icon: MdLeaderboard,
-  },
-  { name: 'Orders', href: '/dashboard/orders', icon: HiClipboardList },
-//   { name: 'Mérkőzések', href: '/dashboard/merkozesek', icon: GiWhistle },
-];
+// const links = [
+//   { name: 'Overview', href: `/dashboard/${session?.userId}`, icon: MdHome },
+//   {
+//     name: 'Stocks',
+//     href: `/dashboard/${session?.userId}/stocks`,
+//     icon: MdLeaderboard,
+//   },
+//   { name: 'Orders', href: `/dashboard/${session?.userId}/orders`, icon: HiClipboardList },
+// //   { name: 'Mérkőzések', href: '/dashboard/merkozesek', icon: GiWhistle },
+// ];
 
-export default function NavLinks() {
+export default function NavLinks({ session }: { session: SessionType | null }) {
   const pathname = usePathname();
+  console.log("Navlinks session: ", session)
+
+  const links = [
+    { name: 'Overview', href: `/dashboard/${session?.user.id}`, icon: MdHome },
+    {
+      name: 'Stocks',
+      href: `/dashboard/${session?.user.id}/stocks`,
+      icon: MdLeaderboard,
+    },
+    { name: 'Orders', href: `/dashboard/${session?.user.id}/orders`, icon: HiClipboardList },
+  //   { name: 'Mérkőzések', href: '/dashboard/merkozesek', icon: GiWhistle },
+  ];
 
   return (
     <>

@@ -11,7 +11,9 @@ export type User = {
     user: {
       name: string;
       email: string;
+      id: string;
     };
     expires: string;
+    userId: string;
   };
   
