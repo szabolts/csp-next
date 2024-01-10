@@ -1,13 +1,12 @@
 "use server";
 
 import { signIn, signOut, auth } from "@/auth";
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
 import { z } from "zod";
 import * as bcrypt from "bcrypt";
 import prisma from "@/utils/prisma";
-
 
 export async function authenticate(
   prevState: string | undefined,
@@ -75,7 +74,11 @@ export async function createUser(formData: FormData) {
 }
 
 const CreateWhSchema = z.object({
-  name: z.string().min(3, { message: "A raktár nevének legalább 3 karakternek kell lennie."}),
+  name: z
+    .string()
+    .min(3, {
+      message: "A raktár nevének legalább 3 karakternek kell lennie.",
+    }),
 });
 
 export type State = {
@@ -104,6 +107,18 @@ export async function createWarehouse(prevState: State, formData: FormData) {
     const newWarehouse = await prisma.warehouse.create({
       data: {
         name: name,
+        cuttingParams: {
+          cuttingCost: 0,
+          kerfWidth: 0,
+          wasteTreshold: 0,
+        },
+        optSettings: {
+          numberOfStocks: 100,
+          lengthOfStocks: 90,
+          cuts: 80,
+          waste: 70,
+        },
+
       },
     });
 
@@ -111,7 +126,7 @@ export async function createWarehouse(prevState: State, formData: FormData) {
       await prisma.user.update({
         where: { id: session.user.id },
         data: { warehouseId: newWarehouse.id },
-      })
+      });
     }
   } catch (error) {
     return {
@@ -123,3 +138,99 @@ export async function createWarehouse(prevState: State, formData: FormData) {
   redirect(`/dashboard/${session?.user?.id}`);
 }
 
+
+export async function setCutParams(formdata: FormData) {
+  const session = await auth();
+  const cuttingCost = formdata.get("cuttingCost");
+  const kerfWidth = formdata.get("kerfWidth");
+  const wasteTreshold = formdata.get("wasteTreshold");
+
+  if (cuttingCost === null || kerfWidth === null || wasteTreshold === null) {
+    throw new Error('One or more form fields are empty');
+  }
+
+  const cuttingParams = {
+    cuttingCost: Number(cuttingCost),
+    kerfWidth: Number(kerfWidth),
+    wasteTreshold: Number(wasteTreshold),
+  };
+
+  console.log("foshugy",cuttingParams);
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: session?.user?.id },
+    });
+
+    if (!user || !user.warehouseId) {
+      throw new Error('No warehouse assigned to this user.');
+    }
+
+    await prisma.warehouse.update({
+      where: { id: user?.warehouseId },
+      data: {
+        cuttingParams: {
+          update: cuttingParams,
+        },
+      },
+    });
+    
+    
+  } catch (error) {
+    console.error("Error in updating cutting params:", error);
+    throw error;
+  }
+  
+  revalidatePath(`/dashboard/${session?.user?.id}/stocks`);
+  redirect(`/dashboard/${session?.user?.id}/stocks`);
+}
+
+
+export async function setOptParams(formdata: FormData) {
+  const session = await auth();
+  console.log("--------FormData: ",formdata);
+  const numberOfStocks = formdata.get("numberOfStocks");
+  const lengthOfStocks = formdata.get("lengthOfStocks");
+  const cuts = formdata.get("cuts");
+  const waste = formdata.get("waste");
+
+  // if (cuttingCost === null || kerfWidth === null || wasteTreshold === null) {
+  //   throw new Error('One or more form fields are empty');
+  // }
+
+  const optSettings = {
+    numberOfStocks: Number(numberOfStocks),
+    lengthOfStocks: Number(lengthOfStocks),
+    cuts: Number(cuts),
+    waste: Number(waste),
+  };
+
+  console.log("--------Optsettings: ",optSettings);
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: session?.user?.id },
+    });
+
+    if (!user || !user.warehouseId) {
+      throw new Error('No warehouse assigned to this user.');
+    }
+
+    await prisma.warehouse.update({
+      where: { id: user?.warehouseId },
+      data: {
+        optSettings: {
+          update: optSettings,
+        },
+      },
+    });
+    
+    
+  } catch (error) {
+    console.error("Error in updating cutting params:", error);
+    throw error;
+  }
+  
+  revalidatePath(`/dashboard/${session?.user?.id}/stocks`);
+  redirect(`/dashboard/${session?.user?.id}/stocks`);
+}

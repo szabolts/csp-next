@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  email       String      @unique
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  email       String     @unique
   password    String
   name        String
-  createdAt   DateTime    @default(now())
-  warehouseId String? @db.ObjectId
+  createdAt   DateTime   @default(now())
+  warehouseId String?    @db.ObjectId
   warehouse   Warehouse? @relation(fields: [warehouseId], references: [id])
 
   @@map("users")
@@ -26,7 +26,8 @@ model Warehouse {
   id            String             @id @default(auto()) @map("_id") @db.ObjectId
   name          String             @unique
   stock         Stock[]
-  cuttingParams CuttingParameters?
+  cuttingParams CuttingParams
+  optSettings   OptSettings
   orders        Order[]
   waste         Waste[]
   inviteCode    String?
@@ -43,12 +44,17 @@ model Stock {
   warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
 }
 
-model CuttingParameters {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  cuttingCost Float // Vágás ára
-  kerfWidth   Float // Kés vastagsága (kerf)
-  warehouseId String    @unique @db.ObjectId
-  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+type CuttingParams {
+  cuttingCost Int 
+  kerfWidth   Int
+  wasteTreshold Int
+}
+
+type OptSettings {
+  numberOfStocks Int
+  lengthOfStocks Int
+  cuts           Int
+  waste          Int
 }
 
 model Order {
