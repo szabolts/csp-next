@@ -323,3 +323,16 @@ export async function updateStock(stockId: string, formData: FormData) {
   revalidatePath(`/dashboard/stocks`);
   redirect(`/dashboard/stocks`);
 }
+
+export async function deleteStock(stockId: string) {
+  try {
+    await prisma.stock.delete({
+      where: { id: stockId },
+    });
+  } catch (error) {
+    console.error("Error in deleting stock:", error);
+    throw error;
+  }
+  revalidatePath(`/dashboard/stocks`);
+  redirect(`/dashboard/stocks`);
+}
