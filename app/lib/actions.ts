@@ -74,11 +74,9 @@ export async function createUser(formData: FormData) {
 }
 
 const CreateWhSchema = z.object({
-  name: z
-    .string()
-    .min(3, {
-      message: "A raktár nevének legalább 3 karakternek kell lennie.",
-    }),
+  name: z.string().min(3, {
+    message: "A raktár nevének legalább 3 karakternek kell lennie.",
+  }),
 });
 
 export type State = {
@@ -118,7 +116,6 @@ export async function createWarehouse(prevState: State, formData: FormData) {
           cuts: 80,
           waste: 70,
         },
-
       },
     });
 
@@ -134,10 +131,9 @@ export async function createWarehouse(prevState: State, formData: FormData) {
     };
   }
   // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath(`/dashboard/${session?.user?.id}`);
-  redirect(`/dashboard/${session?.user?.id}`);
+  revalidatePath(`/dashboard`);
+  redirect(`/dashboard`);
 }
-
 
 export async function setCutParams(formdata: FormData) {
   const session = await auth();
@@ -146,7 +142,7 @@ export async function setCutParams(formdata: FormData) {
   const wasteTreshold = formdata.get("wasteTreshold");
 
   if (cuttingCost === null || kerfWidth === null || wasteTreshold === null) {
-    throw new Error('One or more form fields are empty');
+    throw new Error("One or more form fields are empty");
   }
 
   const cuttingParams = {
@@ -155,7 +151,7 @@ export async function setCutParams(formdata: FormData) {
     wasteTreshold: Number(wasteTreshold),
   };
 
-  console.log("foshugy",cuttingParams);
+  console.log("foshugy", cuttingParams);
 
   try {
     const user = await prisma.user.findUnique({
@@ -163,7 +159,7 @@ export async function setCutParams(formdata: FormData) {
     });
 
     if (!user || !user.warehouseId) {
-      throw new Error('No warehouse assigned to this user.');
+      throw new Error("No warehouse assigned to this user.");
     }
 
     await prisma.warehouse.update({
@@ -174,21 +170,18 @@ export async function setCutParams(formdata: FormData) {
         },
       },
     });
-    
-    
   } catch (error) {
     console.error("Error in updating cutting params:", error);
     throw error;
   }
-  
-  revalidatePath(`/dashboard/${session?.user?.id}/stocks`);
-  redirect(`/dashboard/${session?.user?.id}/stocks`);
-}
 
+  revalidatePath(`/dashboard/stocks`);
+  redirect(`/dashboard/stocks`);
+}
 
 export async function setOptParams(formdata: FormData) {
   const session = await auth();
-  console.log("--------FormData: ",formdata);
+  console.log("--------FormData: ", formdata);
   const numberOfStocks = formdata.get("numberOfStocks");
   const lengthOfStocks = formdata.get("lengthOfStocks");
   const cuts = formdata.get("cuts");
@@ -205,7 +198,7 @@ export async function setOptParams(formdata: FormData) {
     waste: Number(waste),
   };
 
-  console.log("--------Optsettings: ",optSettings);
+  console.log("--------Optsettings: ", optSettings);
 
   try {
     const user = await prisma.user.findUnique({
@@ -213,7 +206,7 @@ export async function setOptParams(formdata: FormData) {
     });
 
     if (!user || !user.warehouseId) {
-      throw new Error('No warehouse assigned to this user.');
+      throw new Error("No warehouse assigned to this user.");
     }
 
     await prisma.warehouse.update({
@@ -224,13 +217,109 @@ export async function setOptParams(formdata: FormData) {
         },
       },
     });
-    
-    
   } catch (error) {
     console.error("Error in updating cutting params:", error);
     throw error;
   }
-  
-  revalidatePath(`/dashboard/${session?.user?.id}/stocks`);
-  redirect(`/dashboard/${session?.user?.id}/stocks`);
+
+  revalidatePath(`/dashboard/stocks`);
+  redirect(`/dashboard/stocks`);
+}
+
+export async function createStock(formData: FormData) {
+  const session = await auth();
+  const name = formData.get("name");
+  const type = formData.get("type");
+  const length = formData.get("length");
+  const quantity = formData.get("quantity");
+  const cost = formData.get("cost");
+
+  if (
+    name === null ||
+    type === null ||
+    length === null ||
+    quantity === null ||
+    cost === null
+  ) {
+    throw new Error("One or more form fields are empty");
+  }
+
+  const stock = {
+    name: String(name),
+    type: String(type),
+    length: Number(length),
+    quantity: Number(quantity),
+    cost: Number(cost),
+  };
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: session?.user?.id },
+    });
+
+    if (!user || !user.warehouseId) {
+      throw new Error("No warehouse assigned to this user.");
+    }
+
+    await prisma.stock.create({
+      data: {
+        ...stock,
+        warehouseId: user.warehouseId,
+      },
+    });
+  } catch (error) {
+    console.error("Error in fetching warehouse:", error);
+    throw error;
+  }
+
+  revalidatePath(`/dashboard/stocks`);
+  redirect(`/dashboard/stocks`);
+}
+
+export async function updateStock(stockId: string, formData: FormData) {
+  const name = formData.get("name");
+  const type = formData.get("type");
+  const length = formData.get("length");
+  const quantity = formData.get("quantity");
+  const cost = formData.get("cost");
+
+  if (
+    name === null ||
+    type === null ||
+    length === null ||
+    quantity === null ||
+    cost === null
+  ) {
+    throw new Error("One or more form fields are empty");
+  }
+
+  const stockUpdate = {
+    name: String(name),
+    type: String(type),
+    length: Number(length),
+    quantity: Number(quantity),
+    cost: Number(cost),
+  };
+
+
+  try {
+    const stock = await prisma.stock.findUnique({
+      where: { id: stockId },
+    });
+
+    if (!stock) {
+      throw new Error("Stock not found.");
+    }
+
+    await prisma.stock.update({
+      where: { id: stockId },
+      data: stockUpdate,
+    });
+
+  } catch (error) {
+    console.error("Error in fetching warehouse:", error);
+    throw error;
+  }
+  revalidatePath(`/dashboard/stocks`);
+  redirect(`/dashboard/stocks`);
 }

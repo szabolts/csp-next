@@ -36,10 +36,11 @@ model Warehouse {
 
 model Stock {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  type        String // Cső típusa
-  length      Int[] // Cső hossza méterben
-  quantity    Int[] // Darabszám
-  cost        Int // Ár
+  name        String 
+  type        String 
+  length      Int 
+  quantity    Int 
+  cost        Int 
   warehouseId String    @db.ObjectId
   warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
 }
@@ -59,17 +60,17 @@ type OptSettings {
 
 model Order {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  ordered     Int // Megrendelt mennyiség
-  cut         Int // Kivágott mennyiség
-  delivered   Int // Kiszállított mennyiség
+  ordered     Int 
+  cut         Int 
+  delivered   Int 
   warehouseId String    @db.ObjectId
   warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
 }
 
 model Waste {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  type        String // Szemét típusa
-  quantity    Int // Mennyiség
+  type        String 
+  quantity    Int 
   warehouseId String    @db.ObjectId
   warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
 }

@@ -20,8 +20,8 @@ export default function Stockparams({ warehouse }: { warehouse: Warehouse }) {
   const [isEnabled, setIsEnabled] = useState(false);
   console.log("kerf: " + warehouse.cuttingParams.kerfWidth);
   return (
-    <Card className=" px-2 pb-2  dark:bg-neutral-900 ">
-      <CardHeader className="flex justify-center text-lg p-2">
+    <Card className=" px-2 pb-2 h-[281px] dark:bg-neutral-900 ">
+      <CardHeader className="flex justify-center  text-lg p-2">
         <div className="w-[32px]"></div>
         <span className="text-xl flex-1 text-center ">Stockparams</span>
         {isEnabled ? (
@@ -61,8 +61,8 @@ export default function Stockparams({ warehouse }: { warehouse: Warehouse }) {
         )}
       </CardHeader>
       <Divider />
-      <form id="cutparams" action={setCutParams}>
-        <CardBody className="gap-4">
+      <form id="cutparams" action={setCutParams} className="h-full ">
+        <CardBody className="gap-4 h-full justify-center" >
           <div className="grid grid-cols-2 gap-2 items-center w-full">
             <span className="w-full flex justify-start">Blade thickness</span>
             <Input

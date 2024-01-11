@@ -26,7 +26,7 @@ export default async function StocksPage() {
         <OptSettings warehouse={warehouse}/>
       </div>
       <div className="col-span-4 md:col-span-4" >
-        <StockAdd />
+        <StockAdd warehouse={warehouse} />
       </div>
     </div>
   );

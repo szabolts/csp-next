@@ -65,7 +65,7 @@ export default function Nav({ session }: { session?: SessionType | null }) {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href={`/dashboard/${session?.user.id}`}>
+          <Link color="foreground" href={`/dashboard/`}>
             Dashboard
           </Link>
         </NavbarItem>

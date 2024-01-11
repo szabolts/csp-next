@@ -37,7 +37,12 @@ export type Warehouse = {
 
 
 export type Stock = {
-
+  id: string;
+  name: string;
+  type: string;
+  length: number;
+  quantity: number;
+  cost: number;
 };
 
 export type Waste = {

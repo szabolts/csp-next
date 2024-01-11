@@ -27,13 +27,13 @@ export default function NavLinks({ session }: { session: SessionType | null }) {
   console.log("Navlinks session: ", session)
 
   const links = [
-    { name: 'Overview', href: `/dashboard/${session?.user.id}`, icon: MdHome },
+    { name: 'Overview', href: `/dashboard`, icon: MdHome },
     {
       name: 'Stocks',
-      href: `/dashboard/${session?.user.id}/stocks`,
+      href: `/dashboard/stocks`,
       icon: MdLeaderboard,
     },
-    { name: 'Orders', href: `/dashboard/${session?.user.id}/orders`, icon: HiClipboardList },
+    { name: 'Orders', href: `/dashboard/orders`, icon: HiClipboardList },
   //   { name: 'Mérkőzések', href: '/dashboard/merkozesek', icon: GiWhistle },
   ];
 
