@@ -123,8 +123,8 @@ export default function Home() {
         className=" relative flex flex-col justify-center items-center h-screen pt-32"
       >
         <div className=" relative flex flex-col w-full p-2">
-          <h1 className="  text-6xl">Szanaszét wág</h1>
-          <p>Szana széllyel vág a cucc</p>
+          <h1 className="  text-6xl">Lorem  ipsum</h1>
+          <p>Lorem ipsum dolor sit amet</p>
         </div>
 
         <Canvas
@@ -150,8 +150,8 @@ export default function Home() {
         className=" relative flex flex-row justify-center items-center h-screen bg-zinc-300 dark:bg-zinc-500 z-30 shadow-large shadow-zinc-900"
       >
         <div className="flex flex-col">
-          <h1 className="text-6xl">Kurvadrága</h1>
-          <p>Gecidrága de hát ez van ki kell fizetni...</p>
+          <h1 className="text-6xl">Lorem  ipsum</h1>
+          <p>Lorem ipsum dolor sit amet.</p>
         </div>
       </div>
       <div
@@ -159,9 +159,9 @@ export default function Home() {
         className="flex flex-row justify-center items-center h-screen"
       >
         <div className="flex flex-col">
-          <h1 className="text-6xl">Irsz kurva</h1>
+          <h1 className="text-6xl">Lorem  ipsum</h1>
           <p>
-            De nem adunk meg semmilyen elérhetőséget szóval találd ki magadtól
+          Lorem ipsum dolor sit amet
           </p>
         </div>
       </div>
